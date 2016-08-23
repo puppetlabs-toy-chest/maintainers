@@ -1,8 +1,6 @@
 # Maintainers
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/maintainers`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+This is a gem for maintaining MAINTAINERS files.
 
 ## Installation
 
@@ -22,7 +20,14 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Supported use cases:
+
+* Create an empty MAINTAINERS file
+* Add or remove a maintainer from a MAINTAINERS file
+* List maintainers from a MAINTAINERS file
+* List maintainers for a repo
+* List all repos in an org maintained by someone
+* Produce a summary report of maintainers within an org
 
 ## Development
 
@@ -32,5 +37,5 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/maintainers. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/kylog/maintainers. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
