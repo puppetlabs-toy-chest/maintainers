@@ -20,14 +20,60 @@ Or install it yourself as:
 
 ## Usage
 
-Supported use cases:
+Some use cases:
 
-* Create an empty MAINTAINERS file
-* Add or remove a maintainer from a MAINTAINERS file
-* List maintainers from a MAINTAINERS file
-* List maintainers for a repo
-* List all repos in an org maintained by someone
-* Produce a summary report of maintainers within an org
+### Create an empty MAINTAINERS file
+
+The only top-level configurable you might want to specify is the issues url.
+
+```ruby
+maintainers create --issues https://github.com/gracehopper/newthing/issues
+```
+
+At this point you might drop some comments in the resultant MAINTAINERS file.
+
+### Add or remove a maintainer from a MAINTAINERS file
+
+Add users, optionally as a subsystem maintainer, optionally with a comment:
+
+```ruby
+maintainers add --github gracehopper --email grace@usnavy.gov --name "Grace Hopper"
+maintainers add --github gracehopper --email grace@usnavy.gov --name "Grace Hopper" --subsystem --comment "Maintains ENIAC"
+```
+
+Remove user by specifying the github id:
+
+```ruby
+maintainers remove --github gracehopper
+```
+
+### List maintainers from a MAINTAINERS file
+
+Emit a list of maintainers:
+
+```ruby
+maintainers list
+```
+
+### List maintainers for a repo
+
+Emit a list of maintainers:
+
+```ruby
+maintainers list https://github.com/gracehopper/newthing
+```
+
+### Produce a summary report of maintainers within an org
+
+```ruby
+maintainers report https://github.com/gracehopper
+```
+
+### Report all repos in an org maintained by someone
+
+```ruby
+maintainers report --github gracehopper https://github.com/gracehopper
+```
 
 ## Development
 

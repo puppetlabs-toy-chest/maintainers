@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require 'maintainers'
+
+cli = Maintainers::CLI.new
+cli.run
