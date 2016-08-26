@@ -1,33 +1,23 @@
-# This project, topsikrit, has top-secret awesome sauce.
-#
-# Btw, note that this comment was human-edited and will be preserved
-# even if you add/remove maintainers using the gem. Nifty!
-
-maintainers: {
-    version: 1
-    issues: "https://github.com/csprojects/topsikrit/issues"
-    # This is a very interesting comment. It will also be preserved.
-    roles: {
-        core: {
-            "ada": {},
-            "turing": {},
-        },
-        subsystem: {
-            "gracehopper": { subsystem: "ENIAC" },
-        },
+{
+  "version": 1,
+  "issues": "https://github.com/graceland/issues",
+  "people": [
+    {
+      "github": "gracehopper",
+      "email": "admiral.grace.hopper@usnavy.gov",
+      "name": "Grace Hopper",
+      "comment": "Maintains ENIAC subsystem"
+    },
+    {
+      "github": "turing",
+      "email": "at@cambridge.edu",
+      "name": "Alan Turing",
+      "comment": "Passed his own test"
+    },
+    {
+      "github": "ada",
+      "email": "ada@example.com",
+      "name": "Ada Lovelace"
     }
-    people: {
-        "ada": {
-            name: "Ada Lovelace"
-            email: "ada@example.com"
-        },
-        "gracehopper": {
-            name: "Grace Hopper"
-            email: "admiral.grace.hopper@usnavy.gov"
-        },
-        "turing": {
-            name: "Alan Turing"
-            email: "at@cambridge.edu"
-        },
-    }
+  ]
 }
