@@ -1,0 +1,49 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Maintainers file format",
+    "type": "object",
+    "additionalProperties": true,
+    "required": [ "version", "issues", "people" ],
+    "properties": {
+        "version": {
+            "description": "Version of this file format. Initially only: 1",
+            "type": "number",
+            "minimum": 1,
+            "maximum": 1
+        },
+        "issues": {
+            "description": "Where to file issues",
+            "type": "string"
+        },
+        "maintained": {
+            "description": "Is this repo maintained? Optional field, but set false to make clear that a repo is not maintained.",
+            "type": "boolean"
+        },
+        "people": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [ "github" ],
+                "properties": {
+                    "github": {
+                        "description": "The maintainer's github id. Note that this is the only requied field.",
+                        "type": "string"
+                    },
+                    "email": {
+                        "description": "The maintainer's email address. Optional, and if present, no format is enforced, so uses like 'fry at puppet' are fine.",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "The maintainer's name. Optional.",
+                        "type": "string"
+                    },
+                    "comment": {
+                        "description": "Optional comment field. May be handy for identifying subsystem ownership or just general awesomeness.",
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
