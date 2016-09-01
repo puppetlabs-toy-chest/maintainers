@@ -6,11 +6,10 @@ require 'maintainers/version'
 Gem::Specification.new do |spec|
   spec.name          = "maintainers"
   spec.version       = Maintainers::VERSION
-  spec.authors       = ["Kylo Ginsberg"]
-  spec.email         = ["kylo@puppet.com"]
+  spec.authors       = ["Puppet, Inc"]
 
   spec.summary       = %q{A gem for maintaining MAINTAINERS files}
-  spec.homepage      = "https://github.com/kylog/maintainers"
+  spec.homepage      = "https://github.com/puppetlabs/maintainers"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = 'bin'
@@ -20,6 +19,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.12"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency "byebug", "~> 9.0"
 
   spec.add_runtime_dependency     'json-schema', '~> 2.6'
 end

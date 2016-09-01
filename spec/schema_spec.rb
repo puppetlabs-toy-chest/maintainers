@@ -7,7 +7,6 @@ describe 'the maintainers schema' do
     maintainers_schema = JSON.parse(File.read('schema/maintainers.json'))
 
     JSON::Validator.validate!(json_meta_schema, maintainers_schema)
-#    JSON::Validator.validate!(@schema, json)
   end
 end
 

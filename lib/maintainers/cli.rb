@@ -70,6 +70,16 @@ module Maintainers
 
       subcommands[subcommand].order!
 
+      if subcommand == 'create' && options[:issues].nil?
+        $stderr.puts "Please specify --issues"
+        usage
+      end
+
+      if subcommand == 'add' && options[:github].nil?
+        $stderr.puts "Please specify --github"
+        usage
+      end
+
       if args.count > 0
         $stderr.puts "Unexpected additional args #{args}"
         usage
