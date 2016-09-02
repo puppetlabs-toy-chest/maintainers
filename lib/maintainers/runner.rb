@@ -27,9 +27,15 @@ module Maintainers
       end
     end
 
-    def validate(maintainers)
-      maintainers_schema = JSON.parse(File.read('schema/MAINTAINERS.json'))
+    def maintainers_schema
+      # I don't know what the idiomatic way is to access a non-ruby file packaged
+      # with the gem. This seems gross but it works.
+      schema_path = File.join(Gem.loaded_specs['maintainers'].gem_dir, 'schema/MAINTAINERS.json')
 
+      JSON.parse(File.read(schema_path))
+    end
+
+    def validate(maintainers)
       JSON::Validator.validate(maintainers_schema, maintainers)
     end
 
