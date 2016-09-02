@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "issues": "https://github.com/puppetlabs/maintainers/issues",
+  "people": [
+    {
+      "github": "kylog",
+      "email": "kylo@puppet.com",
+      "name": "Kylo Ginsberg"
+    }
+  ]
+}

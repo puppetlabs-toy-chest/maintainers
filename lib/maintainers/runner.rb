@@ -28,7 +28,7 @@ module Maintainers
     end
 
     def validate(maintainers)
-      maintainers_schema = JSON.parse(File.read('schema/maintainers.json'))
+      maintainers_schema = JSON.parse(File.read('schema/MAINTAINERS.json'))
 
       JSON::Validator.validate(maintainers_schema, maintainers)
     end
