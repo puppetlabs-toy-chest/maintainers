@@ -24,6 +24,8 @@ module Maintainers
         add(@options)
       when 'remove'
         remove(@options)
+      when 'validate'
+        validate(@options)
       end
     end
 
@@ -35,14 +37,19 @@ module Maintainers
       JSON.parse(File.read(schema_path))
     end
 
-    def validate(maintainers)
-      JSON::Validator.validate(maintainers_schema, maintainers)
+    def validate_json(maintainers)
+      begin
+        JSON::Validator.validate!(maintainers_schema, maintainers)
+      rescue JSON::Schema::ValidationError => e
+        puts e
+        false
+      end
     end
 
     def write_file(filename, maintainers)
       maintainers_json = JSON.pretty_generate(maintainers)
 
-      if !validate(maintainers_json)
+      if !validate_json(maintainers_json)
         $stderr.puts "Invalid maintainers string!"
         exit 1
       end
@@ -107,5 +114,21 @@ module Maintainers
 
       write_file(filename, maintainers)
     end
+
+    def validate(options)
+      filename = options[:filename]
+      if !File.exist?(filename)
+        $stderr.puts "No #{filename} file exists yet. You can use the 'create' subcommand to create one."
+        exit 1
+      end
+
+      if validate_json(File.read(filename))
+        puts "#{filename} looks good"
+      else
+        puts "There's something wrong with #{filename}"
+        exit 1
+      end
+    end
+
   end
 end

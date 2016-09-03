@@ -17,16 +17,6 @@ module Maintainers
       exit 1
     end
 
-    SUBCOMMANDS_WE_LOVE = [
-      "create",
-      "add",
-      "remove",
-      "list",
-      "report",
-      "help",
-      "--help",
-    ]
-
     # @return [Hash] Return an options hash
     def parse(args)
 
@@ -53,6 +43,8 @@ module Maintainers
             end
          end,
         'list' => OptionParser.new do |opts|
+         end,
+        'validate' => OptionParser.new do |opts|
          end,
        }
 
