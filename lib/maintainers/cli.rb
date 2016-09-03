@@ -13,7 +13,42 @@ module Maintainers
     end
 
     def usage
-      puts "Imagine a usage statement here"
+      usage = <<USAGE
+usage: maintainers <command> [<args>]
+
+See below for subcommands. All operate on a file called 'MAINTAINERS'
+in the current working directory.
+
+create --issues <issues text> [--unmaintained]
+
+    Creates a MAINTAINERS file scaffold (but with no people yet).
+    - An 'issues' string is required - typically this is the
+      URL at which to file issues, but knock yourself out.
+    - An 'unmaintained' flag is optional - this make explicit
+      that a repo is not maintained.
+
+add --github <github id> [--email <email address] [--name <street name>]
+
+    Add a maintainer to the MAINTAINERS file. This can also be used to update
+    a maintainer (e.g. adding an 'email' or 'name'): if the specified 'github' id
+    is already in the MAINTAINERS file, the new fields will be merged with
+    the exiting ones.
+    - A 'github' id is required.
+    - An 'email' address is optional.
+    - A 'name' is optional.
+
+remove --github <github id>
+
+    Remove a maintainer from the MAINTAINERS file.
+    - A 'github' id is required.
+
+validate
+
+    Validate that the MAINTAINERS file can be read. This can
+    be useful if you hand-edit the file but want to double-check
+    that it is still machine readable.
+USAGE
+      puts usage
       exit 1
     end
 
@@ -48,17 +83,12 @@ module Maintainers
          end,
        }
 
-      if args.count == 0
-        $stderr.puts "Give me some args please"
-        usage
-      end
+      usage if args.count == 0
 
       subcommand = args.shift
       options[:subcommand] = subcommand
 
-      unless subcommands.keys.include? subcommand
-        usage
-      end
+      usage unless subcommands.keys.include? subcommand
 
       subcommands[subcommand].order!
 
