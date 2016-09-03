@@ -24,6 +24,8 @@ module Maintainers
         add(@options)
       when 'remove'
         remove(@options)
+      when 'list'
+        list(@options)
       when 'validate'
         validate(@options)
       end
@@ -113,6 +115,22 @@ module Maintainers
       end
 
       write_file(filename, maintainers)
+    end
+
+    def list(options)
+      filename = options[:filename]
+      if !File.exist?(filename)
+        $stderr.puts "No #{filename} file exists yet. You can use the 'create' subcommand to create one."
+        exit 1
+      end
+
+      maintainers_json = File.read(filename)
+      validate_json(maintainers_json)
+      maintainers = JSON.load(maintainers_json)
+
+      maintainers['people'].each { |p|
+        puts "%-16s %-20s %s" % [ p['github'], p['name'], p['email'] ]
+      }
     end
 
     def validate(options)

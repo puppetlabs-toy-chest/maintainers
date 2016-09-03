@@ -42,6 +42,10 @@ remove --github <github id>
     Remove a maintainer from the MAINTAINERS file.
     - A 'github' id is required.
 
+list
+
+    List the maintainers in a tabular form.
+
 validate
 
     Validate that the MAINTAINERS file can be read. This can
