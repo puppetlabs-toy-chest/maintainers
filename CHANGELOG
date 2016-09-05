@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [0.2.0] - 2016-09-05
 ### Added
 - Add a 'validate' subcommand
 - Add a 'list' subcommand
@@ -25,6 +27,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Initial support for a json format for MAINTAINERS
 
-[Unreleased]: https://github.com/puppetlabs/maintainers/compare/0.1.2...HEAD
+[Unreleased]: https://github.com/puppetlabs/maintainers/compare/0.2.0...HEAD
+[0.2.0]: https://github.com/puppetlabs/maintainers/compare/0.1.2...0.2.0
 [0.1.2]: https://github.com/puppetlabs/maintainers/compare/0.1.1...0.1.2
 [0.1.1]: https://github.com/puppetlabs/maintainers/compare/0.1.0...0.1.1
