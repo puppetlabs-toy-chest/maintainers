@@ -6,9 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
-- Add half-decent usage
 - Add a 'validate' subcommand
 - Add a 'list' subcommand
+- Add a 'report' subcommand
+- Add half-decent usage
 - Add an optional 'file_format' field referring back to this repo
 
 ## [0.1.2] - 2016-09-02

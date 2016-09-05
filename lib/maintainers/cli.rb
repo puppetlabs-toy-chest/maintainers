@@ -17,7 +17,8 @@ module Maintainers
 usage: maintainers <command> [<args>]
 
 See below for subcommands. All operate on a file called 'MAINTAINERS'
-in the current working directory.
+in the current working directory, except for 'report' which looks for
+that file throughout a github organization.
 
 create --issues <issues text> [--unmaintained]
 
@@ -51,6 +52,13 @@ validate
     Validate that the MAINTAINERS file can be read. This can
     be useful if you hand-edit the file but want to double-check
     that it is still machine readable.
+
+report
+
+    Report on maintainers throughout a github organization.
+    Note: for the report to include private repos, generate a github
+    token with full control of private repositories, and then
+    set the environment variable GITHUB_TOKEN to that token.
 USAGE
       puts usage
       exit 1
@@ -84,6 +92,8 @@ USAGE
         'list' => OptionParser.new do |opts|
          end,
         'validate' => OptionParser.new do |opts|
+         end,
+        'report' => OptionParser.new do |opts|
          end,
        }
 
