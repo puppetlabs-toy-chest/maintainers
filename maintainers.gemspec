@@ -21,5 +21,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "byebug", "~> 9.0"
 
+  spec.add_runtime_dependency     'octokit', '~> 4.3'
   spec.add_runtime_dependency     'json-schema', '~> 2.6'
 end
