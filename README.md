@@ -65,6 +65,14 @@ maintainers report https://github.com/gracehopper
 maintainers report --github gracehopper https://github.com/gracehopper
 ```
 
+### Validate the MAINTAINERS file
+
+Run this from the root of your project.
+
+```ruby
+maintainers validate
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
