@@ -53,12 +53,25 @@ validate
     be useful if you hand-edit the file but want to double-check
     that it is still machine readable.
 
-report
+report [--verbose] [--details [repo|people]]
 
-    Report on maintainers throughout a github organization.
+    Report on maintainers throughout a github organization. By default,
+    the report just lists maintained repos, but see --details for more.
+    - The 'verbose' flag turns on some status. Note that the
+      report can take a while (a couple minutes) due to the number
+      of github API calls needed.
+    - The 'details' flag generates a report which is either
+      repo-centric, i.e. a sorted list of repos with the people
+      maintainer each, OR people-centric, i.e. a sorted list of
+      people with what repos they maintain.
+
     Note: for the report to include private repos, generate a github
     token with full control of private repositories, and then
     set the environment variable GITHUB_TOKEN to that token.
+    Also note that this token may not really be optional:
+    specifically, if you do *not* specify a GITHUB_TOKEN and the
+    organization has a lot of repos (hi puppetlabs), you will likely
+    hit github rate limit exceptions.
 USAGE
       puts usage
       exit 1
@@ -94,6 +107,12 @@ USAGE
         'validate' => OptionParser.new do |opts|
          end,
         'report' => OptionParser.new do |opts|
+            opts.on("-v", "--verbose", "verbosity") do |v|
+              options[:verbose] = v
+            end
+            opts.on("-d", "--details [repos|people]", "detailed report") do |v|
+              options[:details] = v
+            end
          end,
        }
 
@@ -113,6 +132,11 @@ USAGE
 
       if subcommand == 'add' && options[:github].nil?
         $stderr.puts "Please specify --github"
+        usage
+      end
+
+      if subcommand == 'report' && !options[:details].nil? && !['repo', 'people'].include?(options[:details])
+        $stderr.puts "--details must specify either 'repo' or 'people'"
         usage
       end
 

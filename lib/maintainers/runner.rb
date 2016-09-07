@@ -154,13 +154,60 @@ module Maintainers
       end
     end
 
+    def report_basic(maintainers_files)
+      maintainers_files.keys.sort.each { |repo|
+        maintainers = JSON.load( maintainers_files[repo] )
+        if !maintainers['maintained'].nil? && !maintainers['maintained']
+          puts "#{repo} (unmaintained)"
+        else
+          puts "#{repo}"
+        end
+      }
+    end
+
+    def report_repo_details(maintainers_files)
+      maintainers_files.keys.sort.each { |repo|
+        puts "\t#{repo}"
+        maintainers = JSON.load( maintainers_files[repo] )
+        puts "\t\tunmaintained" if !maintainers['maintained'].nil? && !maintainers['maintained']
+        maintainers['people'].each { |person|
+          puts "\t\t#{person['name'] ? person['name'] : person['github']}"
+        }
+      }
+    end
+
+    def report_people_details(maintainers_files)
+      people = {}
+
+      # populate the people hash, building up a 'repos' array per person
+      maintainers_files.keys.sort.each { |repo|
+        maintainers = JSON.load( maintainers_files[repo] )
+        maintainers['people'].each { |person|
+          github_id = person['github']
+          if people[github_id].nil?
+            people[github_id] = person
+            people[github_id]['repos'] = [ repo ]
+          else
+            people[github_id]['repos'] <<  repo
+          end
+        }
+      }
+
+      # report out on the people hash
+      people.keys.sort.each { |github_id|
+        person = people[github_id]
+        puts "#{person['name'] ? person['name'] : person['github']} is maintaining:"
+        person['repos'].each { |repo| puts "\t#{repo}" }
+      }
+    end
+
     def report(options)
-      puts "Ok, hang tight, this may take a while as I query github ..."
+      puts "Ok, hang tight, this may take a while as I query github ..." if options[:verbose]
       client = Octokit::Client.new(:access_token => ENV['GITHUB_TOKEN'], :auto_paginate => true)
 
       repos = client.org_repos(options[:org])
 
-      puts "Found a total of #{repos.count} #{options[:org]} repos"
+      puts "Found a total of #{repos.count} #{options[:org]} repos" if options[:verbose]
 
       # For now hardwire some arbitrary filters to help narrow down the
       # number of repos reported on (and thus github API calls):
@@ -168,7 +215,7 @@ module Maintainers
       # - ignore repos on a blocklist
       # There are pretty arbitrary lines, so could be parameterized (or dropped).
 
-      lightly_forked_repos, repos = repos.partition { |repo| repo.forks < 5 }
+      lightly_forked, repos = repos.partition { |repo| repo.forks < 5 }
 
       blocklist = [
         'puppetlabs-modules',
@@ -185,31 +232,49 @@ module Maintainers
         'courseware-lvm',
       ]
 
-      blocklisted_repos, repos = repos.partition { |repo| blocklist.include? repo.name }
+      blocklisted, repos = repos.partition { |repo| blocklist.include? repo.name }
 
-      no_maintainers_file_repos, repos = repos.partition { |repo|
+      # hash of repo name to maintainers json blob
+      maintainers_files = { }
+
+      no_maintainers_file, repos = repos.partition { |repo|
         begin
           contents = client.contents("#{options[:org]}/#{repo.name}", :path => 'MAINTAINERS')
+
+          # the file content is base64 encoded with some '\n's sprinkled in.
+          # the split.join maneuver below strips out those '\n' sprinkles.
+          maintainers = Base64.decode64(contents[:content].split.join)
+          maintainers_files[repo.name] = maintainers
         rescue Octokit::NotFound
         end
 
         contents.nil?
       }
 
-      unrecognized_maintainers_file_repos, repos = repos.partition { |repo|
-        contents = client.contents("#{options[:org]}/#{repo.name}", :path => 'MAINTAINERS')
-        # the file content is base64 encoded with some '\n's sprinkled in.
-        # the split.join maneuver below strips out those '\n' sprinkles.
-        maintainers = Base64.decode64(contents[:content].split.join)
-
-        !validate_json(maintainers, true)
+      # ok, kinda awkward and not sure if this is worth reporting on?
+      # but some repos may contain a file called MAINTAINERS but in a
+      # different format
+      unrecognized_maintainers_file, repos = repos.partition { |repo|
+        !validate_json(maintainers_files[repo.name], true)
       }
+      unrecognized_maintainers_file.each { |repo| maintainers_files.delete(repo.name) }
 
-      puts "Skipped #{lightly_forked_repos.count} repos with fewer than 5 forks" if lightly_forked_repos
-      puts "Skipped #{blocklisted_repos.count} repos on a blocklist" if blocklisted_repos
-      puts "Skipped #{no_maintainers_file_repos.count} without a MAINTAINERS file" if no_maintainers_file_repos
-      puts "Skipped #{unrecognized_maintainers_file_repos.count} with a MAINTAINERS file in a different format" if unrecognized_maintainers_file_repos
-      puts "Found #{repos.count} repos with MAINTAINERS files"
+      if options[:verbose]
+        puts "Skipped #{lightly_forked.count} repos with fewer than 5 forks" if lightly_forked && lightly_forked.count > 0
+        puts "Skipped #{blocklisted.count} repos on a blocklist" if blocklisted && blocklisted.count > 0
+        puts "Skipped #{no_maintainers_file.count} without a MAINTAINERS file" if no_maintainers_file && no_maintainers_file.count > 0
+        puts "Skipped #{unrecognized_maintainers_file.count} with a MAINTAINERS file in a different format" if unrecognized_maintainers_file && unrecognized_maintainers_file.count > 0
+        puts "Found #{repos.count} repos with MAINTAINERS files"
+      end
+
+      case options[:details]
+      when 'repo'
+        report_repo_details(maintainers_files)
+      when 'people'
+        report_people_details(maintainers_files)
+      else
+        report_basic(maintainers_files)
+      end
 
     end
 
