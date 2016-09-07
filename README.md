@@ -24,11 +24,11 @@ At this point you might drop some comments in the resultant MAINTAINERS file.
 
 ### Add or remove a maintainer from a MAINTAINERS file
 
-Add users, optionally as a subsystem maintainer, optionally with a comment:
+Add users identified by github id, optionally specifying name, email address, and a comment.
 
 ```ruby
 maintainers add --github gracehopper --email grace@usnavy.gov --name "Grace Hopper"
-maintainers add --github gracehopper --email grace@usnavy.gov --name "Grace Hopper" --subsystem --comment "Maintains ENIAC"
+maintainers add --github gracehopper --email grace@usnavy.gov --name "Grace Hopper" --comment "Maintains ENIAC"
 ```
 
 Remove user by specifying the github id:
@@ -45,24 +45,10 @@ Emit a list of maintainers:
 maintainers list
 ```
 
-### List maintainers for a repo
-
-Emit a list of maintainers:
+### Produce a summary report of maintainers within the puppetlabs org
 
 ```ruby
-maintainers list https://github.com/gracehopper/newthing
-```
-
-### Produce a summary report of maintainers within an org
-
-```ruby
-maintainers report https://github.com/gracehopper
-```
-
-### Report all repos in an org maintained by someone
-
-```ruby
-maintainers report --github gracehopper https://github.com/gracehopper
+maintainers report
 ```
 
 ### Validate the MAINTAINERS file
