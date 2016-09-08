@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "file_format": "This MAINTAINERS file format is described at https://github.com/puppetlabs/maintainers",
+  "file_format": "This MAINTAINERS file format is described at http://pup.pt/maintainers",
   "maintained": false,
   "issues": "This repo is not maintained",
   "people": []

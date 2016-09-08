@@ -75,7 +75,7 @@ module Maintainers
       # minimum content for a maintainers file
       maintainers = {}
       maintainers["version"] = 1
-      maintainers["file_format"] = "This MAINTAINERS file format is described at https://github.com/puppetlabs/maintainers"
+      maintainers["file_format"] = "This MAINTAINERS file format is described at http://pup.pt/maintainers"
       maintainers["issues"] = options[:issues]
       maintainers["people"] = []
 
