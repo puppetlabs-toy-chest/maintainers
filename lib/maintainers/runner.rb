@@ -40,7 +40,7 @@ module Maintainers
     def maintainers_schema
       # I don't know what the idiomatic way is to access a non-ruby file packaged
       # with the gem. This seems gross but it works.
-      schema_path = File.join(Gem.loaded_specs['maintainers'].gem_dir, 'schema/MAINTAINERS.json')
+      schema_path = File.join(Gem.loaded_specs['maintainers'].gem_dir, 'schema/MAINTAINERS-schema.json')
 
       JSON.parse(File.read(schema_path))
     end
