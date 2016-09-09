@@ -62,7 +62,7 @@ module Maintainers
         exit 1
       end
 
-      File.open(filename, 'w') { |f| f.write(maintainers_json) }
+      File.open(filename, 'w') { |f| f.puts(maintainers_json) }
     end
 
     def create(options)
