@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [0.2.3] - 2016-09-13
 ### Fixed
 - Remove runtime dependency on bundler inadvertently added in 0.2.2
 
@@ -39,7 +41,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Initial support for a json format for MAINTAINERS
 
-[Unreleased]: https://github.com/puppetlabs/maintainers/compare/v0.2.2...HEAD
+[Unreleased]: https://github.com/puppetlabs/maintainers/compare/v0.2.3...HEAD
+[0.2.3]: https://github.com/puppetlabs/maintainers/compare/v0.2.2...v0.2.3
 [0.2.2]: https://github.com/puppetlabs/maintainers/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/puppetlabs/maintainers/compare/0.2.0...v0.2.1
 [0.2.0]: https://github.com/puppetlabs/maintainers/compare/0.1.2...0.2.0
