@@ -59,6 +59,20 @@ Run this from the root of your project.
 maintainers validate
 ```
 
+## Getting a github token
+
+Some commands (for now, just `report`) will make use of a github token if one is specified in an environment variable `GITHUB_TOKEN`.
+
+To use this, you will need to generate a suitable github token like so:
+* Logged in at github.com, click on your avatar (upper right), then select 'Settings'
+* In the left-hand nav scroll down to 'Personal Access Tokens' and select that
+* Then select 'Generate new token'
+* Give the token a description, then *be sure to select* the 'repo' permissions as in the image below
+* Then click 'Generate Token' down below, and copy the resultant token to wherever you specify the `GITHUB_TOKEN` environment variable
+* Profit!
+
+![alt-tag](https://cloud.githubusercontent.com/assets/1752967/18526927/760b0464-7a77-11e6-865b-afcb5695c810.png)
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
