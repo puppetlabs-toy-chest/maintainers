@@ -4,6 +4,7 @@
 require 'json'
 require 'json-schema'
 require 'octokit'
+require 'csv'
 
 module Maintainers
   # Runner entry point
@@ -176,6 +177,23 @@ module Maintainers
       }
     end
 
+    def report_lists_details(maintainers_files)
+      puts "it looks like you want to export a thingy!"
+      CSV.open("repo_report_#{Time.new.strftime("%Y-%m-%d_%H:%M:%S")}.csv", "wb") do |csv|
+        csv << ["repo_group","maintainer"]
+        maintainers_files.keys.sort.each { |repo|
+          maintainers = JSON.load( maintainers_files[repo] )
+          list = maintainers['internal_list']
+          if list 
+            maintainers['people'].each { |person|
+              name =  "#{person['email'] ? person['email'] : person['name'] ? person['name'] : person['github']}"
+              csv << [list, name ]
+            }
+          end
+        }
+      end
+    end
+
     def report_people_details(maintainers_files)
       people = {}
 
@@ -271,7 +289,9 @@ module Maintainers
       when 'repo'
         report_repo_details(maintainers_files)
       when 'people'
-        report_people_details(maintainers_files)
+        report_people_details(maintainers_files)      
+      when 'lists'
+        report_lists_details(maintainers_files)
       else
         report_basic(maintainers_files)
       end
