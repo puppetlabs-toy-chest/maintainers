@@ -19,6 +19,10 @@
             "description": "Is this repo maintained? Optional field, but set false to make clear that a repo is not maintained.",
             "type": "boolean"
         },
+        "internal_list": {
+            "description": "Link to Google group for maintainers of this repo",
+            "type": "string"
+        },
         "people": {
             "type": "array",
             "items": {

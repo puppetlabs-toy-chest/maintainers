@@ -53,7 +53,7 @@ validate
     be useful if you hand-edit the file but want to double-check
     that it is still machine readable.
 
-report [--verbose] [--details [repo|people]]
+report [--verbose] [--details [repo|people|lists]
 
     Report on maintainers throughout a github organization. By default,
     the report just lists maintained repos, but see --details for more.
@@ -62,8 +62,9 @@ report [--verbose] [--details [repo|people]]
       of github API calls needed.
     - The 'details' flag generates a report which is either
       repo-centric, i.e. a sorted list of repos with the people
-      maintainer each, OR people-centric, i.e. a sorted list of
-      people with what repos they maintain.
+      maintainer each, people-centric, i.e. a sorted list of
+      people with what repos they maintain, OR lists-centric, which
+      creates a csv with rows for every maintainer on every repo.
 
     Note: for the report to include private repos, generate a github
     token with full control of private repositories, and then
@@ -110,7 +111,7 @@ USAGE
             opts.on("-v", "--verbose", "verbosity") do |v|
               options[:verbose] = v
             end
-            opts.on("-d", "--details [repos|people]", "detailed report") do |v|
+            opts.on("-d", "--details [repos|people|lists]", "detailed report") do |v|
               options[:details] = v
             end
          end,
@@ -135,8 +136,8 @@ USAGE
         usage
       end
 
-      if subcommand == 'report' && !options[:details].nil? && !['repo', 'people'].include?(options[:details])
-        $stderr.puts "--details must specify either 'repo' or 'people'"
+      if subcommand == 'report' && !options[:details].nil? && !['repo', 'people', 'lists'].include?(options[:details])
+        $stderr.puts "--details must specify either 'repo', 'people', or lists"
         usage
       end
 
