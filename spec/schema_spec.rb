@@ -6,7 +6,7 @@ describe 'the maintainers schema' do
     json_meta_schema = JSON.parse(File.read('schema/json-meta-schema.json'))
     maintainers_schema = JSON.parse(File.read('schema/MAINTAINERS-schema.json'))
 
-    JSON::Validator.validate!(json_meta_schema, maintainers_schema)
+    expect(JSON::Validator.validate!(json_meta_schema, maintainers_schema)).to be true
   end
 end
 
@@ -15,7 +15,7 @@ describe 'the maintainers example' do
     maintainers_schema = JSON.parse(File.read('schema/MAINTAINERS-schema.json'))
     maintainers_example = JSON.parse(File.read('MAINTAINERS-example'))
 
-    JSON::Validator.validate!(maintainers_schema, maintainers_example)
+    expect(JSON::Validator.validate!(maintainers_schema, maintainers_example)).to be true
   end
 end
 
@@ -24,6 +24,6 @@ describe 'the maintainers unmaintained example' do
     maintainers_schema = JSON.parse(File.read('schema/MAINTAINERS-schema.json'))
     maintainers_example = JSON.parse(File.read('MAINTAINERS-unmaintained_example'))
 
-    JSON::Validator.validate!(maintainers_schema, maintainers_example)
+    expect(JSON::Validator.validate!(maintainers_schema, maintainers_example)).to be true
   end
 end
