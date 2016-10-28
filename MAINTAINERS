@@ -4,10 +4,14 @@
   "issues": "https://github.com/puppetlabs/maintainers/issues",
   "people": [
     {
-      "github": "kylog",
-      "email": "kylo@puppet.com",
-      "name": "Kylo Ginsberg"
+      "github": "mikaelsmith",
+      "email": "michael.smith@puppet.com",
+      "name": "Michael Smith"
     }
+    {
+      "github": "theshanx",
+      "email": "tiffany@puppet.com",
+      "name": "Tiffany Longworth"
   ]
 }
 
