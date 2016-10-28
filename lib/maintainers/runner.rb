@@ -49,8 +49,8 @@ module Maintainers
     def validate_json(maintainers, quiet = false)
       begin
         JSON::Validator.validate!(maintainers_schema, maintainers)
-      rescue JSON::Schema::ValidationError => e
-        puts e unless quiet
+      rescue JSON::Schema::ValidationError, JSON::Schema::UriError => e
+        puts "JSON parsing failed or did not match schema\n#{e}\n#{maintainers}" unless quiet
         false
       end
     end
