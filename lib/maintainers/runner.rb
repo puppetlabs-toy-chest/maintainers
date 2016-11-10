@@ -178,19 +178,20 @@ module Maintainers
     end
 
     def report_lists_details(maintainers_files)
-      puts "it looks like you want to export a thingy!"
-      CSV.open("repo_report_#{Time.new.strftime("%Y-%m-%d_%H:%M:%S")}.csv", "wb") do |csv|
-        csv << ["repo_group","maintainer"]
+      report_name = "repo_report_#{Time.new.strftime("%Y-%m-%d_%H:%M:%S")}.csv"
+      CSV.open(report_name, "wb") do |csv|
+        csv << ["repo","repo_group","maintainer"]
         maintainers_files.keys.sort.each { |repo|
           maintainers = JSON.load( maintainers_files[repo] )
           list = maintainers['internal_list']
           if list 
             maintainers['people'].each { |person|
               name =  "#{person['email'] ? person['email'] : person['name'] ? person['name'] : person['github']}"
-              csv << [list, name ]
+              csv << [repo,list, name ]
             }
           end
         }
+      puts "Your report is called '#{report_name}'"
       end
     end
 
