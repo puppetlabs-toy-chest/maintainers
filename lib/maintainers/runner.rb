@@ -183,13 +183,12 @@ module Maintainers
         csv << ["repo","repo_group","maintainer"]
         maintainers_files.keys.sort.each { |repo|
           maintainers = JSON.load( maintainers_files[repo] )
-          list = maintainers['internal_list']
-          if list 
-            maintainers['people'].each { |person|
-              name =  "#{person['email'] ? person['email'] : person['name'] ? person['name'] : person['github']}"
-              csv << [repo,list, name ]
-            }
-          end
+          list = "#{maintainers['internal_list']}"
+          maintainers['people'].each { |person|
+            name =  "#{person['email'] ? person['email'] : person['name'] ? person['name'] : person['github']}"
+            github = "#{person['github']}"
+            csv << [repo, list, name, github]
+          }
         }
       puts "Your report is called '#{report_name}'"
       end
