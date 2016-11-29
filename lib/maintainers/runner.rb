@@ -180,16 +180,15 @@ module Maintainers
     def report_lists_details(maintainers_files)
       report_name = "repo_report_#{Time.new.strftime("%Y-%m-%d_%H:%M:%S")}.csv"
       CSV.open(report_name, "wb") do |csv|
-        csv << ["repo","repo_group","maintainer"]
+        csv << ["repo","repo_group","maintainer","github"]
         maintainers_files.keys.sort.each { |repo|
           maintainers = JSON.load( maintainers_files[repo] )
           list = maintainers['internal_list']
-          if list 
-            maintainers['people'].each { |person|
-              name =  "#{person['email'] ? person['email'] : person['name'] ? person['name'] : person['github']}"
-              csv << [repo,list, name ]
-            }
-          end
+          maintainers['people'].each { |person|
+            name =  "#{person['email'] ? person['email'] : person['name'] ? person['name'] : person['github']}"
+            github = "#{person['github']}"
+            csv << [repo, list, name, github]
+          }
         }
       puts "Your report is called '#{report_name}'"
       end
