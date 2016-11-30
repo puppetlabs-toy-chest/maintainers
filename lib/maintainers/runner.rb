@@ -276,7 +276,6 @@ module Maintainers
       unrecognized_maintainers_file.each { |repo| maintainers_files.delete(repo.name) }
 
       if options[:verbose]
-        puts "Skipped #{lightly_forked.count} repos with fewer than 5 forks" if lightly_forked && lightly_forked.count > 0
         puts "Skipped #{blocklisted.count} repos on a blocklist" if blocklisted && blocklisted.count > 0
         puts "Skipped #{no_maintainers_file.count} without a MAINTAINERS file" if no_maintainers_file && no_maintainers_file.count > 0
         puts "Skipped #{unrecognized_maintainers_file.count} with a MAINTAINERS file in a different format" if unrecognized_maintainers_file && unrecognized_maintainers_file.count > 0
