@@ -233,8 +233,6 @@ module Maintainers
       # - ignore repos on a blocklist
       # There are pretty arbitrary lines, so could be parameterized (or dropped).
 
-      lightly_forked, repos = repos.partition { |repo| repo.forks < 1 }
-
       blocklist = [
         'puppetlabs-modules',
         'courseware',
